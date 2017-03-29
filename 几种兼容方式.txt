@@ -1,0 +1,99 @@
+﻿ ####兼容scrolltop,scrollleft
+
+function scroll() {
+
+    if(window.pageYOffset !== null){ // ie9+  和 最新浏览器
+        return {
+            left: window.pageXOffset,
+            top: window.pageYOffset
+        }
+    }else if(document.compatMode == 'CSS1Compat'){ // 非怪异浏览器
+        return{
+            left: document.documentElement.scrollLeft,
+            top: document.documentElement.scrollTop
+        }
+    }
+    return{
+        left: document.body.scrollLeft,
+        top: document.body.scrollTop
+    }
+}
+
+####兼容可视区域高宽clientwidth，clientheight
+
+function client() {
+
+    if(window.innerWidth){ // ie9及其以上的版本、最新浏览器
+
+        return {
+            width: window.innerWidth,
+            height: window.innerHeight
+        }
+    }else if(document.compatMode == "CSS1Compat"){ // w3c标准
+        return{
+            width: document.documentElement.clientWidth,
+            height: document.documentElement.clientHeight
+        }
+    }
+    return{
+        width: document.body.clientWidth,
+        height: document.body.clientHeight
+    }
+}
+
+####兼容stopPropagation，阻止冒泡
+
+
+if(event && event.stopPropagation)
+
+{ // w3c标准    
+
+    event.stopPropagation();
+}else{ // IE系列 IE 678    
+
+    event.cancelBubble = true;
+}
+
+####兼容获取当前操作对象，
+
+event.target ? event.target.id : event.srcElement.id
+
+####兼容用户选取的内容：
+
+var selectedText;
+
+if(window.getSelection){
+
+
+ // 标准模式 获取选中的文字
+   
+   selectedText = window.getSelection().toString();
+
+
+}else{ // IE 系列   
+
+   selectedText = document.selection.createRange().text;
+
+}
+
+####判断哪种浏览器
+
+function getOs() {
+
+    var OsObject = "";
+    if (isIE = navigator.userAgent.indexOf("MSIE") != -1) {
+        return "MSIE";
+    }
+    if (isFirefox = navigator.userAgent.indexOf("Firefox") != -1) {
+        return "Firefox";
+    }
+    if (isChrome = navigator.userAgent.indexOf("Chrome") != -1) {
+        return "Chrome";
+    }
+    if (isSafari = navigator.userAgent.indexOf("Safari") != -1) {
+        return "Safari";
+    }
+    if (isOpera = navigator.userAgent.indexOf("Opera") != -1) {
+        return "Opera";
+    }
+}
